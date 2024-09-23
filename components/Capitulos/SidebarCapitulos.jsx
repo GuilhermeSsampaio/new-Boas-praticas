@@ -92,7 +92,7 @@ export const SidebarCapitulos = ({
 
             <div>
               <div className="mt-1" style={{ marginBottom: "8px" }}>
-                <a
+                <Link
                   href="/IntroPage"
                   className="d-flex align-items-center"
                   style={{
@@ -102,7 +102,7 @@ export const SidebarCapitulos = ({
                   }}
                 >
                   Introdução
-                </a>
+                </Link>
               </div>
               {sortedCollections.map((collection) => (
                 <div key={collection.id}>
