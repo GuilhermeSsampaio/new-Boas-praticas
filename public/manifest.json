@@ -1,7 +1,7 @@
 {
-  "name": "TecnofamApp",
-  "short_name": "TecnofamApp",
-  "description": "Cartilha da agricultura familiar da embrapa",
+  "name": "Boas práticas agrícolas",
+  "short_name": "Boas práticas",
+  "description": "Cartilha boas práticas agrícolas",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#218c74",
