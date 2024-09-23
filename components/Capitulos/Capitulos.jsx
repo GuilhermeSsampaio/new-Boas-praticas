@@ -86,7 +86,7 @@ export const Capitulos = () => {
     };
 
     loadCapitulos();
-  }, [currentCollection]);
+  }, [collectionsData, currentCollection]);
 
   useEffect(() => {
     const chapterNumber = extractChapterNumberFromAnchor(asPath);
