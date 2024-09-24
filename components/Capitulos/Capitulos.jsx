@@ -218,7 +218,7 @@ export const Capitulos = () => {
           </div>
         </main>
       </div>
-      <FooterCapitulos />
+      {/* <FooterCapitulos /> */}
     </>
   );
 };
