@@ -1,6 +1,6 @@
 import React from "react";
 //convertendo o conteúdo do bloco de texto em HTML
-const RefConversorHtml = ({ data }) => {
+export const RefConversorHtml = ({ data }) => {
   function convertToHTML(data) {
     let htmlContent = "";
     htmlContent += `<div class='instituicao'>`;
