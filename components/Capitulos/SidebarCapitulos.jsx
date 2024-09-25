@@ -12,6 +12,7 @@ export const SidebarCapitulos = ({
   collections,
 }) => {
   const router = useRouter();
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeChapter, setActiveChapter] = useState(null);
   const [showSummary, setShowSummary] = useState(true);
   var LogoIFEmbrapa = require("../../public/logo-if-embrapa.png");
@@ -89,21 +90,30 @@ export const SidebarCapitulos = ({
               </div>
             </div>
             <hr className="featurette-divider line-menu"></hr>
+            <button
+              type="button"
+              className="clean-btn navbar-sidebar__back"
+              id="back-button"
+              onClick={() => setShowSummary(false)}
+            >
+              ← Voltar para o menu principal
+            </button>
 
             <div>
-              <div className="mt-1" style={{ marginBottom: "8px" }}>
-                <Link
-                  href="/IntroPage"
-                  className="d-flex align-items-center"
-                  style={{
-                    padding: "0.4rem 1rem",
-                    backgroundColor: "#0000000d",
-                    fontWeight: "500",
-                  }}
-                >
-                  Introdução
-                </Link>
-              </div>
+              <a
+                className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center dropdown-background ${
+                  isCollapsed ? "collapsed" : ""
+                }`}
+                aria-current="true"
+                onClick={handleToggle}
+              >
+                <span className="w-100 text-primary">Sumário</span>{" "}
+                <i
+                  className={`fas fa-chevron-${
+                    isCollapsed ? "right" : "down"
+                  } icon-deg`}
+                ></i>
+              </a>
               {sortedCollections.map((collection) => (
                 <div key={collection.id}>
                   <p
@@ -122,12 +132,11 @@ export const SidebarCapitulos = ({
                     <i
                       className={`fas fa-chevron-${
                         activeCollection === collection.id ? "down" : "right"
-                      } 
-                                            ${
-                                              activeCollection === collection.id
-                                                ? "icon-deg-active"
-                                                : "icon-deg-right"
-                                            }`}
+                      } ${
+                        activeCollection === collection.id
+                          ? "icon-deg-active"
+                          : "icon-deg-right"
+                      }`}
                     ></i>
                   </p>
                   {activeCollection === collection.id && (
@@ -171,8 +180,72 @@ export const SidebarCapitulos = ({
               ))}
             </div>
           </div>
+          <div
+            id="main-navbar-options-menu"
+            style={{ marginTop: 16, display: showSummary ? "none" : "block" }}
+          >
+            <div className="logo-container d-flex align-items-center justify-content-between">
+              <Link href="/home">
+                <Image
+                  className="img-sidebar-top mx-3"
+                  src={LogoIFEmbrapa}
+                  alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas"
+                  width="45%"
+                  height={46}
+                  priority
+                />
+              </Link>
+              <button
+                id="btn-close-sidebar"
+                type="button"
+                className="btn-close btn-close-dark btn-close-cap"
+                aria-label="Close"
+                onClick={() => {
+                  setIsOffcanvasOpen(false);
+                  setShowSummary(true);
+                }}
+              ></button>
+            </div>
+            <hr className="featurette-divider line-menu"></hr>
+            <button
+              type="button"
+              className="clean-btn navbar-sidebar__back"
+              id="back-button"
+              onClick={() => setShowSummary(true)}
+            >
+              ← Voltar para o Sumário
+            </button>
+            <ul className="navbar-nav ms-auto d-flex itens-menu-cap">
+              <li className="nav-item mx-3">
+                <Link
+                  className="nav-link back-item-link py-2"
+                  href="/edicao-completa"
+                  aria-current="page"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                >
+                  <span className="link-text">Edição Completa</span>
+                </Link>
+              </li>
+              <li className="nav-item mx-3">
+                <Link
+                  className="nav-link back-item-link py-2"
+                  href="/autores"
+                  aria-current="page"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                >
+                  <span className="link-text">Autores</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
+      {isOffcanvasOpen && (
+        <div
+          className="offcanvas-backdrop show"
+          onClick={() => setIsOffcanvasOpen(false)}
+        ></div>
+      )}
     </div>
   );
 };

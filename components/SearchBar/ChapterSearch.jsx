@@ -8,7 +8,7 @@ const ChapterSearch = ({ collections, onSelectCollection, closeSidebar }) => {
   const handleSearchChange = useCallback((e) => {
     setSearchQuery(e.target.value);
   }, []);
-  console.log(collections);
+  // console.log(collections);
 
   const filteredChapters = useCallback(() => {
     if (!searchQuery) return [];
@@ -17,14 +17,14 @@ const ChapterSearch = ({ collections, onSelectCollection, closeSidebar }) => {
         .filter((chapter) =>
           chapter.attributes.titulo
             .toLowerCase()
-            .includes(searchQuery.toLowerCase())
+            .includes(searchQuery.toLowerCase()),
         )
         .map((chapter) => ({
           collectionId: collection.id,
           chapterId: chapter.id,
           title: chapter.attributes.titulo,
           collectionTitle: collection.title,
-        }))
+        })),
     );
   }, [collections, searchQuery]);
 
@@ -34,12 +34,12 @@ const ChapterSearch = ({ collections, onSelectCollection, closeSidebar }) => {
       router.push(
         `#collection_${collectionId}#capitulo_${chapterId}`,
         undefined,
-        { shallow: true }
+        { shallow: true },
       );
       closeSidebar();
       setSearchQuery(""); // Limpa a busca após a seleção
     },
-    [onSelectCollection, router, closeSidebar]
+    [onSelectCollection, router, closeSidebar],
   );
 
   return (
