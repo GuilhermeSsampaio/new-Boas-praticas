@@ -55,14 +55,22 @@ export const Layout = ({ children }) => {
             isOffcanvasOpen={isOffcanvasOpen}
             setIsOffcanvasOpen={setIsOffcanvasOpen}
           /> */}
-          {children}
-          <FooterCapitulos />
+          <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+            <div className="flex-grow-1">
+              {children}
+            </div>
+            <FooterCapitulos />
+          </div>
         </>
       ) : (
         <>
           <Navbar />
-          {children}
-          <Footer />
+          <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+            <div className="flex-grow-1">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </>
       )}
     </>
