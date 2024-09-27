@@ -17,7 +17,7 @@ export const Autores = () => {
       </Head>
 
       {/* Conteúdos dos Autores */}
-      <div className="showcaseSection flex-grow-1">
+      <div className="showcaseSection">
         <div className="headerTitle">
           <h1>Autores</h1>
         </div>
