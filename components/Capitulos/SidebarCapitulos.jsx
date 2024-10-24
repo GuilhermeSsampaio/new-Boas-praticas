@@ -17,13 +17,28 @@ export const SidebarCapitulos = ({
   const [showSummary, setShowSummary] = useState(true);
   var LogoIFEmbrapa = require("../../public/logo-if-embrapa.png");
 
+  /*/
   const handleToggle = useCallback(
     (collectionId) => {
       onSelectCollection(collectionId);
       setActiveChapter(null);
     },
     [onSelectCollection],
-  );
+  ); */
+
+  const handleToggle = useCallback(
+  (collectionId) => {
+    // Alterna o estado da coleção ativa
+    if (activeCollection === collectionId) {
+      onSelectCollection(null); // Fecha se for a mesma coleção
+    } else {
+      onSelectCollection(collectionId); // Abre se for outra coleção
+    }
+    setActiveChapter(null); // Reseta o capítulo ativo
+  },
+  [onSelectCollection, activeCollection]
+);
+
 
   const handleChapterClick = useCallback(
     (collectionId, chapterId) => {
