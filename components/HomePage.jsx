@@ -22,12 +22,11 @@ export const HomePage = () => {
             height="128"
           />
           <h1 className="display-5 fw-bold">
-            Tecnologias para a Agricultura Familiar
-          </h1>
+BOAS PRÁTICAS PARA INTEGRAÇÃO HARMÔNICA ENTRE APICULTURA E SOJICULTURA          </h1>
         </div>
         <div className="col-lg-6 mx-auto">
           <p className="lead mb-4">
-            4<sup>a</sup> edição revista e atualizada
+            1<sup>a</sup> edição revista e atualizada
           </p>
           <div className="d-grid container-botoes">
             <Link href="/edicao-completa" type="button" className="btn">
