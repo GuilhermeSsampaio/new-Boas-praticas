@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 const baseUrl =
-  process.env.REACT_APP_API_URL || "https://api-cartilha.squareweb.app";
+  process.env.NEXT_PUBLIC_API_URL || "https://api-cartilha.squareweb.app";
 
 const useFetchCollections = () => {
   const [collections, setCollections] = useState([]);
