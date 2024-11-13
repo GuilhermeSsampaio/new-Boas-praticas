@@ -42,6 +42,8 @@ export const Autores = () => {
                     </div>
                     {/* Nome dos Autores */}
                     <p className="bold nome-autor">{item.attributes.name}</p>
+                    {/* Função dos Autores */}
+                    <p className="funcao-autor">{item.attributes.funcao}</p>
                   </div>
                   {/* Descrição dos Autores */}
                   <div className="cardContainer_HEVx">
