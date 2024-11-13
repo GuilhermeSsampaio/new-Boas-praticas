@@ -25,7 +25,8 @@ export const Capitulos = () => {
   const [collectionsData, setCollectionsData] = useState({});
   const { collections, activeCollection, setActiveCollection } =
     useFetchCollections();
-
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL || "https://api-cartilha.squareweb.app";
   const handleToggleBackDrop = () => {
     setIsOffcanvasOpen((prevState) => !prevState);
   };
@@ -93,7 +94,7 @@ export const Capitulos = () => {
       setIsChapterLoading(true);
       fetchCapitulosRef.current = new AbortController();
 
-      const url = `https://api-cartilha.squareweb.app/api/${currentCollection}?populate=*`;
+      const url = `${baseUrl}/api/${currentCollection}?populate=*`;
 
       try {
         const response = await fetch(url, {
