@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+const baseUrl =
+  process.env.REACT_APP_API_URL || "https://api-cartilha.squareweb.app";
 
 const useFetchCollections = () => {
   const [collections, setCollections] = useState([]);
@@ -11,10 +13,10 @@ const useFetchCollections = () => {
         fetchCollectionsRef.current = new AbortController();
 
         const urls = [
-          "https://api-cartilha.squareweb.app/api/pesticida-abelhas?populate=*",
-          "https://api-cartilha.squareweb.app/api/boa-pratica-agroes?populate=*",
-          "https://api-cartilha.squareweb.app/api/boa-pratica-apicolas?populate=*",
-          "https://api-cartilha.squareweb.app/api/boa-pratica-comunicacaos?populate=*",
+          `${baseUrl}/api/pesticida-abelhas?populate=*`,
+          `${baseUrl}/api/boa-pratica-agroes?populate=*`,
+          `${baseUrl}/api/boa-pratica-apicolas?populate=*`,
+          `${baseUrl}/api/boa-pratica-comunicacaos?populate=*`,
         ];
 
         const responses = await Promise.all(
@@ -25,9 +27,9 @@ const useFetchCollections = () => {
                   throw new Error("Network response was not ok");
                 }
                 return response.json();
-              }
-            )
-          )
+              },
+            ),
+          ),
         );
 
         const collectionsData = [
