@@ -50,7 +50,8 @@ export const SidebarCapitulos = ({
   );
 
   const handleIntroductionClick = () => {
-    // Redireciona para a seção de introdução
+    setActiveTitle("intro"); // Definir activeTitle como 'intro'
+    // Redirecionar para a seção de introdução
     router.push("#boas-praticas", undefined, { shallow: true });
     setIsOffcanvasOpen(false);
   };
@@ -135,9 +136,16 @@ export const SidebarCapitulos = ({
               {!isCollapsed && (
                 <>
                   <p
-                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center introduction-button-p"
+                    className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center introduction-button-p ${
+                      activeTitle === "intro" ? "active-dark" : ""
+                    }`}
                     onClick={handleIntroductionClick}
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                      marginBottom: "8px",
+                      backgroundColor:
+                        activeTitle === "intro" ? "#eeeeee" : "transparent",
+                    }}
                   >
                     Introdução
                   </p>

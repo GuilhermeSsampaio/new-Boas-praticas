@@ -11,7 +11,7 @@ import { SidebarCapitulos } from "./SidebarCapitulos";
 import { FooterCapitulos } from "./FooterCapitulos";
 import { NavbarCapitulos } from "./NavbarCapitulos";
 import Intro from "./Intro";
-import { Breadcrumbs } from "./Breadcrumbs"; // Importar o componente Breadcrumbs
+import { Breadcrumbs } from "./BreadCrumbs";
 
 export const Capitulos = () => {
   const LogoIF = require("../../public/ifms-dr-marca-2015.png");
