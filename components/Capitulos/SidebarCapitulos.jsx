@@ -51,6 +51,7 @@ export const SidebarCapitulos = ({
 
   const handleIntroductionClick = () => {
     setActiveTitle("intro"); // Definir activeTitle como 'intro'
+    setExpandedCollection(null); // Fechar qualquer coleção aberta
     // Redirecionar para a seção de introdução
     router.push("#boas-praticas", undefined, { shallow: true });
     setIsOffcanvasOpen(false);
@@ -60,15 +61,12 @@ export const SidebarCapitulos = ({
     (collectionId) => {
       if (expandedCollection === collectionId) {
         setExpandedCollection(null); // Fecha a coleção se estiver aberta
-        setActiveTitle(null);
-        // router.push("", undefined, { shallow: true }); // Remover collectionId da URL
       } else {
         setExpandedCollection(collectionId); // Expande a coleção selecionada
-        setActiveTitle(null);
-        // router.push("", undefined, { shallow: true }); // Remover collectionId da URL
       }
+      setActiveTitle(null); // Desmarcar 'intro' como ativo
     },
-    [expandedCollection, router, setActiveTitle],
+    [expandedCollection, setActiveTitle],
   );
 
   return (
