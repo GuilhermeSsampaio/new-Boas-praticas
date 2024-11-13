@@ -11,6 +11,7 @@ import { SidebarCapitulos } from "./SidebarCapitulos";
 import { FooterCapitulos } from "./FooterCapitulos";
 import { NavbarCapitulos } from "./NavbarCapitulos";
 import Intro from "./Intro";
+import { Breadcrumbs } from "./Breadcrumbs"; // Importar o componente Breadcrumbs
 
 export const Capitulos = () => {
   const LogoIF = require("../../public/ifms-dr-marca-2015.png");
@@ -46,19 +47,25 @@ export const Capitulos = () => {
     const chapterMatch = path.match(/#capitulo_(\d+)/);
     const collectionId = collectionMatch ? parseInt(collectionMatch[1]) : null;
     const chapterId = chapterMatch ? parseInt(chapterMatch[1]) : null;
-    return { collectionId, chapterId };
+    const isIntroduction =
+      path.includes("#introduction") || path.includes("#boas-praticas");
+    return { collectionId, chapterId, isIntroduction };
   };
 
   useEffect(() => {
-    const { collectionId, chapterId } =
+    const { collectionId, chapterId, isIntroduction } =
       extractCollectionAndChapterFromAnchor(asPath);
 
-    if (collectionId && chapterId) {
+    if (isIntroduction) {
+      setCurrentCollection("intro");
+      setActiveTitle("intro");
+      setActiveCollection(null);
+    } else if (collectionId && chapterId) {
       handleSelectCollection(collectionId, chapterId);
       setActiveCollection(collectionId);
     } else if (!collectionId && !chapterId && currentCollection !== "intro") {
       setCurrentCollection("intro");
-      setActiveTitle(null);
+      setActiveTitle("intro");
       setActiveCollection(null);
     }
   }, [asPath]);
@@ -127,10 +134,14 @@ export const Capitulos = () => {
   }, [collectionsData, currentCollection, activeTitle]);
 
   useEffect(() => {
-    if (data.length > 0 && activeTitle === null) {
+    if (
+      currentCollection !== "intro" &&
+      data.length > 0 &&
+      activeTitle === null
+    ) {
       setActiveTitle(data[0].id);
     }
-  }, [data, activeTitle]);
+  }, [data, activeTitle, currentCollection]);
 
   useEffect(() => {
     if (activeTitle !== null) {
@@ -150,9 +161,18 @@ export const Capitulos = () => {
   }, [collections, currentCollection]);
 
   const activeChapter = data.find((item) => item.id === activeTitle);
-  const displayedTitle = activeChapter
-    ? activeChapter.attributes.titulo
-    : "Título do Capítulo";
+
+  const currentCollectionTitle =
+    activeTitle === "intro"
+      ? null
+      : collections.find((col) => col.id === activeCollection)?.title;
+
+  const displayedTitle =
+    activeTitle === "intro"
+      ? "Introdução"
+      : activeChapter
+        ? activeChapter.attributes.titulo
+        : "Título do Capítulo";
 
   return (
     <>
@@ -188,35 +208,11 @@ export const Capitulos = () => {
         <main className="docMainContainer_gTbr">
           <div className="container-fluid padding-bottom--lg">
             <div className="col">
-              <nav
-                className="home-section"
-                aria-label="Breadcrumbs"
-                style={{ marginTop: 120 }}
-              >
-                <ul className="breadcrumbs">
-                  <li className="breadcrumbs__item">
-                    <Link href="/home" className="breadcrumbs__link">
-                      <i
-                        className="fas fa-home"
-                        style={{ fontSize: "13px" }}
-                      ></i>
-                    </Link>
-                    <i
-                      className="fas fa-chevron-right"
-                      style={{ fontSize: "10px" }}
-                    ></i>
-                  </li>
-                  <li className="breadcrumbs__item">
-                    <span className="breadcrumbs__link">Sumário</span>
-                    <meta itemProp="position" content="1" />
-                    <i
-                      className="fas fa-chevron-right"
-                      style={{ fontSize: "10px" }}
-                    ></i>
-                  </li>
-                  <BreadcrumbsItem displayedTitle={displayedTitle} />
-                </ul>
-              </nav>
+              <Breadcrumbs
+                displayedTitle={displayedTitle}
+                collectionTitle={currentCollectionTitle}
+              />
+              {/* Substituir o código do <nav> pelos breadcrumbs */}
               <section
                 className="home-section right-sidebar"
                 style={{ marginTop: "30px" }}
