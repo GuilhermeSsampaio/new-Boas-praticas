@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 
 const useFetchAutores = () => {
   const [data, setData] = useState([]);
-
+  const baseUrl =
+    process.env.REACT_APP_API_URL || "https://api-cartilha.squareweb.app";
   const CarregaAutores = async () => {
-    const url = "https://api-cartilha.squareweb.app/api/autors?populate=*";
+    // const url = "https://api-cartilha.squareweb.app/api/autors?populate=*";
+    const url = `${baseUrl}/api/autors?populate=*`;
 
     try {
       const response = await fetch(url);
