@@ -2,7 +2,7 @@ import Link from "next/link";
 import BreadcrumbsItem from "./BreadCrumbsItem";
 
 // Componente para Breadcrumbs
-export const Breadcrumbs = ({ displayedTitle }) => (
+export const Breadcrumbs = ({ displayedTitle, collectionTitle }) => (
   <nav
     className="home-section"
     aria-label="Breadcrumbs"
@@ -20,12 +20,18 @@ export const Breadcrumbs = ({ displayedTitle }) => (
         <meta itemProp="position" content="1" />
         <i className="fas fa-chevron-right" style={{ fontSize: "10px" }}></i>
       </li>
-      {/* <li className="breadcrumbs__item breadcrumbs__item--active">
-        <span className="breadcrumbs__link" itemProp="name">
-          {displayedTitle}
-        </span>
-        <meta itemProp="position" content="2" />
-      </li> */}
+      {collectionTitle && (
+        <>
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__link">{collectionTitle}</span>
+            <meta itemProp="position" content="2" />
+            <i
+              className="fas fa-chevron-right"
+              style={{ fontSize: "10px" }}
+            ></i>
+          </li>
+        </>
+      )}
       <BreadcrumbsItem displayedTitle={displayedTitle} />
     </ul>
   </nav>
