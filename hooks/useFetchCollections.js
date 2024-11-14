@@ -20,16 +20,22 @@ const useFetchCollections = () => {
         ];
 
         const responses = await Promise.all(
-          urls.map((url) =>
-            fetch(url, { signal: fetchCollectionsRef.current.signal }).then(
-              (response) => {
-                if (!response.ok) {
-                  throw new Error("Network response was not ok");
-                }
-                return response.json();
-              },
-            ),
-          ),
+          urls.map(async (url) => {
+            try {
+              const response = await fetch(url, {
+                signal: fetchCollectionsRef.current.signal,
+              });
+              if (!response.ok) throw new Error("Network response was not ok");
+              return response.json();
+            } catch (error) {
+              // Tentar buscar do cache se a requisição falhar
+              if ("caches" in window) {
+                const cache = await caches.match(url);
+                if (cache) return cache.json();
+              }
+              throw error;
+            }
+          }),
         );
 
         const collectionsData = [
