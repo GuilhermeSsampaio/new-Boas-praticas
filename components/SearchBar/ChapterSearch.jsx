@@ -51,15 +51,11 @@ const ChapterSearch = ({
 
   const handleChapterClick = useCallback(
     (collectionId, chapterId) => {
-      // Primeiro atualizar todos os estados
       setExpandedCollection(collectionId);
       setIsChapterActive({ [chapterId]: true });
       setActiveTitle(chapterId);
-
-      // Depois chamar onSelectCollection
       onSelectCollection(collectionId, chapterId, true);
 
-      // Por último, fazer a navegação
       Promise.resolve().then(() => {
         router
           .push(

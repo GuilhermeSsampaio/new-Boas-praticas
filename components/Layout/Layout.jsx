@@ -3,10 +3,14 @@ import { Navbar } from "./Navbar";
 import { NavbarCapitulos } from "../Capitulos/NavbarCapitulos";
 import { Footer } from "./Footer";
 import { FooterCapitulos } from "../Capitulos/FooterCapitulos";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import useFetchCapitulos from "../../hooks/useFetchCapitulos";
 import { SidebarCapitulos } from "../Capitulos/SidebarCapitulos";
 import useFetchCollections from "@/hooks/useFetchCollections";
+
+// Criar contexto para compartilhar o estado do título
+export const BreadcrumbContext = createContext();
+
 // Componente que renderiza o layout da aplicação
 export const Layout = ({ children }) => {
   const router = useRouter();
@@ -21,6 +25,8 @@ export const Layout = ({ children }) => {
   const [isChapterActive, setIsChapterActive] = useState(false);
   const scrollToTop = () => window.scrollTo(0, 0);
   const [expandedCollection, setExpandedCollection] = useState(null);
+  const [breadcrumbTitle, setBreadcrumbTitle] = useState("");
+
   //Função para quando o usuário quiser fechar o sidebar
   const closeSidebar = () => {
     const sidebarMenu = document.getElementById("sidebarMenu");
@@ -29,6 +35,7 @@ export const Layout = ({ children }) => {
     }
     setIsOffcanvasOpen(false);
   };
+
   //faz aparecer o backdrop
   const handleToggleBackDrop = () => {
     //setIsOffcanvasOpen((prevState) => !prevState);
@@ -51,18 +58,13 @@ export const Layout = ({ children }) => {
       4: "boa-pratica-comunicacaos",
     };
 
-    // Garantir que a coleção seja expandida e o capítulo marcado como ativo
     if (chapterId !== null || isFromSearch) {
-      // Primeiro expandir a coleção
       setExpandedCollection(collectionId);
-
-      // Depois atualizar os estados
       setCurrentCollection(collectionsMap[collectionId]);
       setActiveCollection(collectionId);
       setActiveTitle(chapterId);
       setIsChapterActive({ [chapterId]: true });
 
-      // Se estiver na homepage, redirecionar para a página de capítulos
       if (!router.pathname.includes("edicao-completa")) {
         setTimeout(() => {
           router.push(
@@ -70,6 +72,19 @@ export const Layout = ({ children }) => {
           );
         }, 0);
       }
+    }
+  };
+
+  const handleSelectCollectionWrapper = (
+    collectionId,
+    chapterId,
+    isFromSearch,
+  ) => {
+    handleSelectCollection(collectionId, chapterId, isFromSearch);
+    const collection = collections.find((col) => col.id === collectionId);
+    if (collection) {
+      setCurrentCollection(collection.title);
+      setBreadcrumbTitle(collection.title);
     }
   };
 
@@ -86,7 +101,7 @@ export const Layout = ({ children }) => {
     const { collectionId, chapterId } = extractIds(asPath);
 
     if (collectionId && chapterId) {
-      handleSelectCollection(collectionId, chapterId, true);
+      handleSelectCollectionWrapper(collectionId, chapterId, true);
       setExpandedCollection(collectionId);
       setIsChapterActive({ [chapterId]: true });
       setActiveTitle(chapterId);
@@ -94,7 +109,7 @@ export const Layout = ({ children }) => {
   }, [asPath]);
 
   return (
-    <>
+    <BreadcrumbContext.Provider value={{ breadcrumbTitle, setBreadcrumbTitle }}>
       {isEdicaoCompleta ? (
         <>
           <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
@@ -106,7 +121,7 @@ export const Layout = ({ children }) => {
         <>
           <Navbar
             collections={collections}
-            handleSelectCollection={handleSelectCollection}
+            handleSelectCollection={handleSelectCollectionWrapper}
             isOffcanvasOpen={isOffcanvasOpen}
             setIsOffcanvasOpen={setIsOffcanvasOpen}
             activeTitle={activeTitle}
@@ -114,7 +129,8 @@ export const Layout = ({ children }) => {
             isChapterActive={isChapterActive}
             setIsChapterActive={setIsChapterActive}
             scrollToTop={scrollToTop}
-            setExpandedCollection={setExpandedCollection}
+            setExpandedCollection={setExpandedCollection} // Assegurar que está sendo passado
+            setCurrentCollection={setCurrentCollection}
           />
           <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
             <div className="flex-grow-1">{children}</div>
@@ -122,6 +138,6 @@ export const Layout = ({ children }) => {
           </div>
         </>
       )}
-    </>
+    </BreadcrumbContext.Provider>
   );
 };
