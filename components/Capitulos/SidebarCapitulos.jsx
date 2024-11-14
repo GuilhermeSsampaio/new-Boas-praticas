@@ -10,6 +10,8 @@ export const SidebarCapitulos = ({
   collections,
   activeTitle, // Receber activeTitle
   setActiveTitle, // Receber setActiveTitle
+  isChapterActive, // Receber isChapterActive
+  setIsChapterActive, // Receber setIsChapterActive
 }) => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -38,7 +40,8 @@ export const SidebarCapitulos = ({
   const handleChapterClick = useCallback(
     (collectionId, chapterId) => {
       onSelectCollection(collectionId, chapterId);
-      setActiveTitle(chapterId); // Atualizar activeTitle
+      setActiveTitle(chapterId); // Gerenciar capítulo aberto
+      setIsChapterActive({ [chapterId]: true }); // Ativar apenas o capítulo clicado
       router.push(
         `#collection_${collectionId}#capitulo_${chapterId}`,
         undefined,
@@ -46,13 +49,19 @@ export const SidebarCapitulos = ({
       );
       setIsOffcanvasOpen(false);
     },
-    [onSelectCollection, router, setIsOffcanvasOpen, setActiveTitle],
+    [
+      onSelectCollection,
+      router,
+      setIsOffcanvasOpen,
+      setActiveTitle,
+      setIsChapterActive,
+    ],
   );
 
   const handleIntroductionClick = () => {
-    setActiveTitle("intro"); // Definir activeTitle como 'intro'
-    setExpandedCollection(null); // Fechar qualquer coleção aberta
-    // Redirecionar para a seção de introdução
+    setActiveTitle("intro");
+    setIsChapterActive({}); // Resetar ativações ao clicar na introdução
+    setExpandedCollection(null);
     router.push("#boas-praticas", undefined, { shallow: true });
     setIsOffcanvasOpen(false);
   };
@@ -60,13 +69,14 @@ export const SidebarCapitulos = ({
   const handleToggle = useCallback(
     (collectionId) => {
       if (expandedCollection === collectionId) {
-        setExpandedCollection(null); // Fecha a coleção se estiver aberta
+        setExpandedCollection(null);
       } else {
-        setExpandedCollection(collectionId); // Expande a coleção selecionada
+        setExpandedCollection(collectionId);
+        setActiveTitle(null);
+        setIsChapterActive({}); // Resetar ativações ao abrir uma nova coleção
       }
-      setActiveTitle(null); // Desmarcar 'intro' como ativo
     },
-    [expandedCollection, setActiveTitle],
+    [expandedCollection, setActiveTitle, setIsChapterActive],
   );
 
   return (
@@ -207,7 +217,7 @@ export const SidebarCapitulos = ({
                                   <li
                                     key={item.id}
                                     className={`list-group-item py-2 ${
-                                      activeTitle === item.id
+                                      isChapterActive[item.id]
                                         ? "active-dark"
                                         : ""
                                     } ${
@@ -220,10 +230,9 @@ export const SidebarCapitulos = ({
                                       cursor: "pointer",
                                       marginBottom: "8px",
                                       fontSize: "15px",
-                                      backgroundColor:
-                                        activeTitle === item.id
-                                          ? "#eeeeee"
-                                          : "transparent",
+                                      backgroundColor: isChapterActive[item.id]
+                                        ? "#eeeeee"
+                                        : "transparent",
                                     }}
                                   >
                                     <div className="d-flex justify-content-between align-items-center">

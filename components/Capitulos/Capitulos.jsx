@@ -21,6 +21,7 @@ export const Capitulos = () => {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
   const [data, setData] = useState([]);
   const [activeTitle, setActiveTitle] = useState(null);
+  const [isChapterActive, setIsChapterActive] = useState({}); // Nova flag de estado
   const [currentCollection, setCurrentCollection] = useState(null);
   const [isChapterLoading, setIsChapterLoading] = useState(false);
   const [collectionsData, setCollectionsData] = useState({});
@@ -140,6 +141,7 @@ export const Capitulos = () => {
       activeTitle === null
     ) {
       setActiveTitle(data[0].id);
+      // setIsChapterActive(true);
     }
   }, [data, activeTitle, currentCollection]);
 
@@ -190,6 +192,8 @@ export const Capitulos = () => {
           collections={collections}
           activeTitle={activeTitle}
           setActiveTitle={setActiveTitle}
+          isChapterActive={isChapterActive} // Passar nova flag
+          setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
         />
 
         <NavbarCapitulos
