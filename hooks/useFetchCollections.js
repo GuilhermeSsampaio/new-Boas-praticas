@@ -2,6 +2,29 @@ import { useState, useEffect, useRef } from "react";
 const baseUrl =
   process.env.NEXT_PUBLIC_API_URL || "https://api-cartilha.squareweb.app";
 
+const endpoints = [
+  {
+    id: 1,
+    title: "Pesticidas e abelhas",
+    path: "/api/pesticida-abelhas?populate=*",
+  },
+  {
+    id: 2,
+    title: "Boas práticas agrícolas",
+    path: "/api/boa-pratica-agroes?populate=*",
+  },
+  {
+    id: 3,
+    title: "Boas práticas apícolas",
+    path: "/api/boa-pratica-apicolas?populate=*",
+  },
+  {
+    id: 4,
+    title: "Boas práticas de comunicação",
+    path: "/api/boa-pratica-comunicacaos?populate=*",
+  },
+];
+
 const useFetchCollections = () => {
   const [collections, setCollections] = useState([]);
   const [activeCollection, setActiveCollection] = useState(null);
@@ -12,12 +35,7 @@ const useFetchCollections = () => {
       try {
         fetchCollectionsRef.current = new AbortController();
 
-        const urls = [
-          `${baseUrl}/api/pesticida-abelhas?populate=*`,
-          `${baseUrl}/api/boa-pratica-agroes?populate=*`,
-          `${baseUrl}/api/boa-pratica-apicolas?populate=*`,
-          `${baseUrl}/api/boa-pratica-comunicacaos?populate=*`,
-        ];
+        const urls = endpoints.map((endpoint) => `${baseUrl}${endpoint.path}`);
 
         const responses = await Promise.all(
           urls.map(async (url) => {
@@ -38,12 +56,11 @@ const useFetchCollections = () => {
           }),
         );
 
-        const collectionsData = [
-          { id: 1, title: "Pesticidas e abelhas", data: responses[0] },
-          { id: 2, title: "Boas práticas agrícolas", data: responses[1] },
-          { id: 3, title: "Boas práticas apícolas", data: responses[2] },
-          { id: 4, title: "Boas práticas de comunicação", data: responses[3] },
-        ];
+        const collectionsData = endpoints.map((endpoint, index) => ({
+          id: endpoint.id,
+          title: endpoint.title,
+          data: responses[index],
+        }));
 
         setCollections(collectionsData);
 

@@ -78,18 +78,18 @@ export const Capitulos = () => {
     }
   }, [asPath]);
 
+  const collectionsMap = {
+    1: "pesticida-abelhas",
+    2: "boa-pratica-agroes",
+    3: "boa-pratica-apicolas",
+    4: "boa-pratica-comunicacaos",
+  };
+
   const handleSelectCollection = (
     collectionId,
     chapterId = null,
     isFromSearch = false,
   ) => {
-    const collectionsMap = {
-      1: "pesticida-abelhas",
-      2: "boa-pratica-agroes",
-      3: "boa-pratica-apicolas",
-      4: "boa-pratica-comunicacaos",
-    };
-
     if (chapterId !== null || isFromSearch) {
       setCurrentCollection(collectionsMap[collectionId]);
       setActiveTitle(chapterId);
