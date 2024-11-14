@@ -18,6 +18,9 @@ export const Layout = ({ children }) => {
   const { collections, activeCollection, setActiveCollection } =
     useFetchCollections();
   const [activeTitle, setActiveTitle] = useState(null);
+  const [isChapterActive, setIsChapterActive] = useState(false);
+  const scrollToTop = () => window.scrollTo(0, 0);
+  const [expandedCollection, setExpandedCollection] = useState(null);
   //Função para quando o usuário quiser fechar o sidebar
   const closeSidebar = () => {
     const sidebarMenu = document.getElementById("sidebarMenu");
@@ -64,6 +67,12 @@ export const Layout = ({ children }) => {
             handleSelectCollection={handleSelectCollection}
             isOffcanvasOpen={isOffcanvasOpen}
             setIsOffcanvasOpen={setIsOffcanvasOpen}
+            activeTitle={activeTitle}
+            setActiveTitle={setActiveTitle}
+            isChapterActive={isChapterActive}
+            setIsChapterActive={setIsChapterActive}
+            scrollToTop={scrollToTop}
+            setExpandedCollection={setExpandedCollection}
           />
           <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
             <div className="flex-grow-1">{children}</div>
