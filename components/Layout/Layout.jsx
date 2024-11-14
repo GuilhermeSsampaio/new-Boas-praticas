@@ -39,17 +39,59 @@ export const Layout = ({ children }) => {
     closeSidebar();
   };
 
-  const handleSelectCollection = (collectionId) => {
+  const handleSelectCollection = (
+    collectionId,
+    chapterId = null,
+    isFromSearch = false,
+  ) => {
     const collectionsMap = {
       1: "pesticida-abelhas",
       2: "boa-pratica-agroes",
       3: "boa-pratica-apicolas",
       4: "boa-pratica-comunicacaos",
     };
-    setCurrentCollection(collectionsMap[collectionId]);
-    setActiveTitle(null);
-    setActiveCollection(collectionId);
+
+    // Garantir que a coleção seja expandida e o capítulo marcado como ativo
+    if (chapterId !== null || isFromSearch) {
+      // Primeiro expandir a coleção
+      setExpandedCollection(collectionId);
+
+      // Depois atualizar os estados
+      setCurrentCollection(collectionsMap[collectionId]);
+      setActiveCollection(collectionId);
+      setActiveTitle(chapterId);
+      setIsChapterActive({ [chapterId]: true });
+
+      // Se estiver na homepage, redirecionar para a página de capítulos
+      if (!router.pathname.includes("edicao-completa")) {
+        setTimeout(() => {
+          router.push(
+            `/edicao-completa#collection_${collectionId}#capitulo_${chapterId}`,
+          );
+        }, 0);
+      }
+    }
   };
+
+  useEffect(() => {
+    const extractIds = (path) => {
+      const collectionMatch = path.match(/#collection_(\d+)/);
+      const chapterMatch = path.match(/#capitulo_(\d+)/);
+      return {
+        collectionId: collectionMatch ? parseInt(collectionMatch[1]) : null,
+        chapterId: chapterMatch ? parseInt(chapterMatch[1]) : null,
+      };
+    };
+
+    const { collectionId, chapterId } = extractIds(asPath);
+
+    if (collectionId && chapterId) {
+      handleSelectCollection(collectionId, chapterId, true);
+      setExpandedCollection(collectionId);
+      setIsChapterActive({ [chapterId]: true });
+      setActiveTitle(chapterId);
+    }
+  }, [asPath]);
 
   return (
     <>

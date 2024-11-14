@@ -65,6 +65,8 @@ export const Capitulos = () => {
     } else if (collectionId && chapterId) {
       handleSelectCollection(collectionId, chapterId);
       setActiveCollection(collectionId);
+      setExpandedCollection(collectionId); // Adicionar esta linha para garantir
+      setIsChapterActive({ [chapterId]: true }); // Adicionar esta linha para garantir
     } else if (!collectionId && !chapterId && currentCollection !== "intro") {
       setCurrentCollection("intro");
       setActiveTitle("intro");

@@ -51,18 +51,28 @@ const ChapterSearch = ({
 
   const handleChapterClick = useCallback(
     (collectionId, chapterId) => {
+      // Primeiro atualizar todos os estados
+      setExpandedCollection(collectionId);
+      setIsChapterActive({ [chapterId]: true });
+      setActiveTitle(chapterId);
+
+      // Depois chamar onSelectCollection
       onSelectCollection(collectionId, chapterId, true);
-      setActiveTitle(chapterId); // Atualizar o capítulo ativo
-      setIsChapterActive({ [chapterId]: true }); // Ativar apenas o capítulo clicado
-      router.push(
-        `/edicao-completa#collection_${collectionId}#capitulo_${chapterId}`, // Atualize a URL para refletir a navegação correta
-        undefined,
-        { shallow: true },
-      );
-      setExpandedCollection(collectionId); // Expandir a coleção do capítulo clic
-      closeSidebar();
-      setSearchQuery(""); // Limpa a busca após a seleção
-      scrollToTop(); // Chamar scrollToTop ao trocar de cap
+
+      // Por último, fazer a navegação
+      Promise.resolve().then(() => {
+        router
+          .push(
+            `/edicao-completa#collection_${collectionId}#capitulo_${chapterId}`,
+            undefined,
+            { shallow: true },
+          )
+          .then(() => {
+            scrollToTop();
+            closeSidebar();
+            setSearchQuery("");
+          });
+      });
     },
     [
       onSelectCollection,
@@ -70,8 +80,8 @@ const ChapterSearch = ({
       closeSidebar,
       setActiveTitle,
       setIsChapterActive,
-      scrollToTop,
       setExpandedCollection,
+      scrollToTop,
     ],
   );
 
