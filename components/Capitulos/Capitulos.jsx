@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { FooterCapitulos } from "./FooterCapitulos";
 import { NavbarCapitulos } from "./NavbarCapitulos";
 import Intro from "./Intro";
 import { Breadcrumbs } from "./BreadCrumbs";
+import { BreadcrumbContext } from "../Layout/Layout";
 
 export const Capitulos = () => {
   const LogoIF = require("../../public/ifms-dr-marca-2015.png");
@@ -35,6 +36,7 @@ export const Capitulos = () => {
 
   const fetchCapitulosRef = useRef(null);
   const [expandedCollection, setExpandedCollection] = useState(null); // Adicionar estado para coleção expandida
+  const { setBreadcrumbTitle } = useContext(BreadcrumbContext);
 
   useEffect(() => {
     return () => {
@@ -62,6 +64,7 @@ export const Capitulos = () => {
       setCurrentCollection("intro");
       setActiveTitle("intro");
       setActiveCollection(null);
+      setBreadcrumbTitle("Introdução");
     } else if (collectionId && chapterId) {
       handleSelectCollection(collectionId, chapterId);
       setActiveCollection(collectionId);
@@ -71,6 +74,7 @@ export const Capitulos = () => {
       setCurrentCollection("intro");
       setActiveTitle("intro");
       setActiveCollection(null);
+      setBreadcrumbTitle("Introdução");
     }
   }, [asPath]);
 
@@ -91,6 +95,10 @@ export const Capitulos = () => {
       setActiveTitle(chapterId);
       setActiveCollection(collectionId);
       setIsChapterActive({ [chapterId]: true }); // Ativar apenas o capítulo clicado
+      const collection = collections.find((col) => col.id === collectionId);
+      if (collection) {
+        setBreadcrumbTitle(collection.title);
+      }
     }
   };
 

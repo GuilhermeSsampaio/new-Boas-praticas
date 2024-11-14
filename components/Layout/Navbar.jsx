@@ -14,6 +14,7 @@ export const Navbar = ({
   setIsChapterActive,
   scrollToTop,
   setExpandedCollection,
+  setCurrentCollection,
 }) => {
   //Importação das Imagens
   var LogoIF = require("../../public/ifms-dr-marca-2015.png");
