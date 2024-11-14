@@ -145,14 +145,17 @@ export const Capitulos = () => {
     }
   }, [data, activeTitle, currentCollection]);
 
-  useEffect(() => {
-    if (activeTitle !== null) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  }, [activeTitle]);
+  // useEffect(() => {
+  //   if (isChapterActive !== null) {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, [isChapterActive]);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (!currentCollection && collections.length > 0) {
@@ -194,6 +197,7 @@ export const Capitulos = () => {
           setActiveTitle={setActiveTitle}
           isChapterActive={isChapterActive} // Passar nova flag
           setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+          scrollToTop={scrollToTop} // Passar scrollToTop para SidebarCapitulos
         />
 
         <NavbarCapitulos
@@ -234,6 +238,7 @@ export const Capitulos = () => {
                       currentCollection={activeCollection}
                       isChapterActive={isChapterActive} // Passar nova flag
                       setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+                      scrollToTop={scrollToTop} // Passar scrollToTop para TextCapitulos
                     />
                   )}
                 </div>

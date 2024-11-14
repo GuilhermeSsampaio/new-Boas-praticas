@@ -12,6 +12,7 @@ export const TextCapitulos = ({
   currentCollection,
   isChapterActive,
   setIsChapterActive,
+  scrollToTop,
 }) => {
   const [headerBlocks, setHeaderBlocks] = useState([]);
   const [activeSubChapter, setActiveSubChapter] = useState(null);
@@ -69,6 +70,8 @@ export const TextCapitulos = ({
         { shallow: true },
       );
     }
+
+    scrollToTop(); // Chamar scrollToTop ao trocar de capítulo
   };
 
   const handleSubChapterNavigation = (subChapterId) => {

@@ -12,6 +12,7 @@ export const SidebarCapitulos = ({
   setActiveTitle, // Receber setActiveTitle
   isChapterActive, // Receber isChapterActive
   setIsChapterActive, // Receber setIsChapterActive
+  scrollToTop,
 }) => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -47,6 +48,7 @@ export const SidebarCapitulos = ({
         undefined,
         { shallow: true },
       );
+      scrollToTop();
       setIsOffcanvasOpen(false);
     },
     [
