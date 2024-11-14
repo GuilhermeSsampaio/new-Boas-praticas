@@ -13,11 +13,13 @@ export const SidebarCapitulos = ({
   isChapterActive, // Receber isChapterActive
   setIsChapterActive, // Receber setIsChapterActive
   scrollToTop,
+  expandedCollection,
+  setExpandedCollection, // Adicionar setExpandedCollection
 }) => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showSummary, setShowSummary] = useState(true);
-  const [expandedCollection, setExpandedCollection] = useState(null);
+  // const [expandedCollection, setExpandedCollection] = useState(null);
   var LogoIFEmbrapa = require("../../public/logo-if-embrapa.png");
   var LogoBasf = require("../../public/BASF-Logo.png");
 

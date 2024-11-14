@@ -34,6 +34,7 @@ export const Capitulos = () => {
   };
 
   const fetchCapitulosRef = useRef(null);
+  const [expandedCollection, setExpandedCollection] = useState(null); // Adicionar estado para coleção expandida
 
   useEffect(() => {
     return () => {
@@ -87,6 +88,7 @@ export const Capitulos = () => {
       setCurrentCollection(collectionsMap[collectionId]);
       setActiveTitle(chapterId);
       setActiveCollection(collectionId);
+      setIsChapterActive({ [chapterId]: true }); // Ativar apenas o capítulo clicado
     }
   };
 
@@ -198,6 +200,8 @@ export const Capitulos = () => {
           isChapterActive={isChapterActive} // Passar nova flag
           setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
           scrollToTop={scrollToTop} // Passar scrollToTop para SidebarCapitulos
+          expandedCollection={expandedCollection} // Passar coleção expandida
+          setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para SidebarCapitulos
         />
 
         <NavbarCapitulos
@@ -211,6 +215,10 @@ export const Capitulos = () => {
           LogoEmbrapa={LogoEmbrapa}
           activeTitle={activeTitle}
           setActiveTitle={setActiveTitle}
+          isChapterActive={isChapterActive} // Passar nova flag
+          setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+          scrollToTop={scrollToTop} // Passar scrollToTop para NavbarCapitulos
+          setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para NavbarCapitulos
         />
 
         <main className="docMainContainer_gTbr">
