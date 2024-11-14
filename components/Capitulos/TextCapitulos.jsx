@@ -10,6 +10,8 @@ export const TextCapitulos = ({
   activeTitle,
   setActiveTitle,
   currentCollection,
+  isChapterActive,
+  setIsChapterActive,
 }) => {
   const [headerBlocks, setHeaderBlocks] = useState([]);
   const [activeSubChapter, setActiveSubChapter] = useState(null);
@@ -57,6 +59,7 @@ export const TextCapitulos = ({
   const handleNavigation = (chapterId) => {
     setActiveTitle(chapterId);
     setActiveSubChapter(null);
+    setIsChapterActive({ [chapterId]: true }); // Atualizar o capítulo ativo no Sidebar
 
     // Atualizar a URL mantendo a referência da coleção atual
     if (currentCollection) {

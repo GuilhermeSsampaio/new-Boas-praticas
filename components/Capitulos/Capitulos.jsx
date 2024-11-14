@@ -232,6 +232,8 @@ export const Capitulos = () => {
                       activeTitle={activeTitle}
                       setActiveTitle={setActiveTitle}
                       currentCollection={activeCollection}
+                      isChapterActive={isChapterActive} // Passar nova flag
+                      setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
                     />
                   )}
                 </div>
