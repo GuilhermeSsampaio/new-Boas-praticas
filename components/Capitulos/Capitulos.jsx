@@ -21,6 +21,7 @@ export const Capitulos = () => {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
   const [data, setData] = useState([]);
   const [activeTitle, setActiveTitle] = useState(null);
+  const [isChapterActive, setIsChapterActive] = useState({}); // Nova flag de estado
   const [currentCollection, setCurrentCollection] = useState(null);
   const [isChapterLoading, setIsChapterLoading] = useState(false);
   const [collectionsData, setCollectionsData] = useState({});
@@ -33,6 +34,7 @@ export const Capitulos = () => {
   };
 
   const fetchCapitulosRef = useRef(null);
+  const [expandedCollection, setExpandedCollection] = useState(null); // Adicionar estado para coleção expandida
 
   useEffect(() => {
     return () => {
@@ -63,6 +65,8 @@ export const Capitulos = () => {
     } else if (collectionId && chapterId) {
       handleSelectCollection(collectionId, chapterId);
       setActiveCollection(collectionId);
+      setExpandedCollection(collectionId); // Adicionar esta linha para garantir
+      setIsChapterActive({ [chapterId]: true }); // Adicionar esta linha para garantir
     } else if (!collectionId && !chapterId && currentCollection !== "intro") {
       setCurrentCollection("intro");
       setActiveTitle("intro");
@@ -86,6 +90,7 @@ export const Capitulos = () => {
       setCurrentCollection(collectionsMap[collectionId]);
       setActiveTitle(chapterId);
       setActiveCollection(collectionId);
+      setIsChapterActive({ [chapterId]: true }); // Ativar apenas o capítulo clicado
     }
   };
 
@@ -140,17 +145,21 @@ export const Capitulos = () => {
       activeTitle === null
     ) {
       setActiveTitle(data[0].id);
+      // setIsChapterActive(true);
     }
   }, [data, activeTitle, currentCollection]);
 
-  useEffect(() => {
-    if (activeTitle !== null) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  }, [activeTitle]);
+  // useEffect(() => {
+  //   if (isChapterActive !== null) {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, [isChapterActive]);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (!currentCollection && collections.length > 0) {
@@ -190,6 +199,11 @@ export const Capitulos = () => {
           collections={collections}
           activeTitle={activeTitle}
           setActiveTitle={setActiveTitle}
+          isChapterActive={isChapterActive} // Passar nova flag
+          setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+          scrollToTop={scrollToTop} // Passar scrollToTop para SidebarCapitulos
+          expandedCollection={expandedCollection} // Passar coleção expandida
+          setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para SidebarCapitulos
         />
 
         <NavbarCapitulos
@@ -203,6 +217,10 @@ export const Capitulos = () => {
           LogoEmbrapa={LogoEmbrapa}
           activeTitle={activeTitle}
           setActiveTitle={setActiveTitle}
+          isChapterActive={isChapterActive} // Passar nova flag
+          setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+          scrollToTop={scrollToTop} // Passar scrollToTop para NavbarCapitulos
+          setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para NavbarCapitulos
         />
 
         <main className="docMainContainer_gTbr">
@@ -228,6 +246,9 @@ export const Capitulos = () => {
                       activeTitle={activeTitle}
                       setActiveTitle={setActiveTitle}
                       currentCollection={activeCollection}
+                      isChapterActive={isChapterActive} // Passar nova flag
+                      setIsChapterActive={setIsChapterActive} // Passar função para atualizar a flag
+                      scrollToTop={scrollToTop} // Passar scrollToTop para TextCapitulos
                     />
                   )}
                 </div>

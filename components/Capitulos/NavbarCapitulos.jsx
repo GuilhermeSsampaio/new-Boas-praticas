@@ -14,6 +14,10 @@ export const NavbarCapitulos = ({
   LogoEmbrapa,
   activeTitle,
   setActiveTitle,
+  isChapterActive,
+  setIsChapterActive,
+  scrollToTop,
+  setExpandedCollection, // Adicionar setExpandedCollection
 }) => {
   return (
     <nav
@@ -67,6 +71,10 @@ export const NavbarCapitulos = ({
                   closeSidebar={() => setIsOffcanvasOpen(false)}
                   activeTitle={activeTitle}
                   setActiveTitle={setActiveTitle}
+                  isChapterActive={isChapterActive}
+                  setIsChapterActive={setIsChapterActive}
+                  scrollToTop={scrollToTop}
+                  setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para ChapterSearch
                 />
               </div>
             </form>
@@ -100,6 +108,10 @@ export const NavbarCapitulos = ({
                   closeSidebar={() => setIsOffcanvasOpen(false)}
                   activeTitle={activeTitle}
                   setActiveTitle={setActiveTitle}
+                  isChapterActive={isChapterActive}
+                  setIsChapterActive={setIsChapterActive}
+                  scrollToTop={scrollToTop}
+                  setExpandedCollection={setExpandedCollection} // Passar setExpandedCollection para ChapterSearch
                 />
               </div>
             </div>

@@ -8,6 +8,12 @@ export const Navbar = ({
   handleSelectCollection,
   isOffcanvasOpen,
   setIsOffcanvasOpen,
+  activeTitle,
+  setActiveTitle,
+  isChapterActive,
+  setIsChapterActive,
+  scrollToTop,
+  setExpandedCollection,
 }) => {
   //Importação das Imagens
   var LogoIF = require("../../public/ifms-dr-marca-2015.png");
@@ -54,6 +60,12 @@ export const Navbar = ({
                 collections={collections}
                 onSelectCollection={handleSelectCollection}
                 closeSidebar={() => setIsOffcanvasOpen(false)}
+                activeTitle={activeTitle}
+                setActiveTitle={setActiveTitle}
+                isChapterActive={isChapterActive}
+                setIsChapterActive={setIsChapterActive}
+                scrollToTop={scrollToTop}
+                setExpandedCollection={setExpandedCollection}
               />
             </div>
           </div>
@@ -130,6 +142,12 @@ export const Navbar = ({
                     collections={collections}
                     onSelectCollection={handleSelectCollection}
                     closeSidebar={() => setIsOffcanvasOpen(false)}
+                    activeTitle={activeTitle}
+                    setActiveTitle={setActiveTitle}
+                    isChapterActive={isChapterActive}
+                    setIsChapterActive={setIsChapterActive}
+                    scrollToTop={scrollToTop}
+                    setExpandedCollection={setExpandedCollection}
                   />
                 </div>
               </div>

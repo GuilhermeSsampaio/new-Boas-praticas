@@ -5,8 +5,11 @@ const ChapterSearch = ({
   collections,
   onSelectCollection,
   closeSidebar,
-  // activeTitle,
-  // setActiveTitle,
+  activeTitle, // Receber activeTitle
+  setActiveTitle, // Receber setActiveTitle
+  setIsChapterActive, // Receber setIsChapterActive
+  scrollToTop,
+  setExpandedCollection, // Receber setExpandedCollection
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -48,18 +51,38 @@ const ChapterSearch = ({
 
   const handleChapterClick = useCallback(
     (collectionId, chapterId) => {
+      // Primeiro atualizar todos os estados
+      setExpandedCollection(collectionId);
+      setIsChapterActive({ [chapterId]: true });
+      setActiveTitle(chapterId);
+
+      // Depois chamar onSelectCollection
       onSelectCollection(collectionId, chapterId, true);
-      // setActiveTitle(chapterId); // Atualizar o capítulo ativo
-      router.push(
-        `/edicao-completa#collection_${collectionId}#capitulo_${chapterId}`, // Atualize a URL para refletir a navegação correta
-        undefined,
-        { shallow: true },
-      );
-      closeSidebar();
-      setSearchQuery(""); // Limpa a busca após a seleção
+
+      // Por último, fazer a navegação
+      Promise.resolve().then(() => {
+        router
+          .push(
+            `/edicao-completa#collection_${collectionId}#capitulo_${chapterId}`,
+            undefined,
+            { shallow: true },
+          )
+          .then(() => {
+            scrollToTop();
+            closeSidebar();
+            setSearchQuery("");
+          });
+      });
     },
-    // [onSelectCollection, router, closeSidebar, setActiveTitle],
-    [onSelectCollection, router, closeSidebar],
+    [
+      onSelectCollection,
+      router,
+      closeSidebar,
+      setActiveTitle,
+      setIsChapterActive,
+      setExpandedCollection,
+      scrollToTop,
+    ],
   );
 
   useEffect(() => {
