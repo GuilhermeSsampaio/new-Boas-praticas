@@ -47,7 +47,7 @@ const SubChapterToc = ({ headerBlocks: collections, onSubChapterClick }) => {
 
       {/* Menu flutuante */}
       {isExpanded && (
-        <div className="floating-toc-menu">
+        <div className="floating-toc-menu thin-scrollbar">
           <nav className="bd-toc">
             <ul className="list-unstyled">
               <li>

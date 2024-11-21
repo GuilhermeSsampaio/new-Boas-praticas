@@ -218,6 +218,7 @@ hr {
   font-weight: 400;
   text-decoration: none;
   border-radius: 1.5rem;
+  margin-right: 3px;
   padding: calc(0.4rem * 0.8) calc(0.6rem * 0.8);
   text-decoration: none;
   transition-duration: 0ms;
@@ -236,7 +237,6 @@ hr {
   color: inherit;
   font-weight: 700;
   line-height: 1.25;
-  margin-bottom: 1rem;
   color: #1c1e21;
 }
 
@@ -251,7 +251,7 @@ hr {
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  margin: 0 0 70px;
+  margin: 0 0 30px;
   font-weight: 700;
   color: #1c1e21;
 }
