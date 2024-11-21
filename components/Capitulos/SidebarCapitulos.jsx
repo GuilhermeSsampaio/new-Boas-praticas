@@ -154,9 +154,9 @@ export const SidebarCapitulos = ({
                     onClick={handleIntroductionClick}
                     style={{
                       cursor: "pointer",
-                      marginBottom: "8px",
+                      marginBottom: "2px",
                       backgroundColor:
-                        activeTitle === "intro" ? "#eeeeee" : "transparent",
+                        activeTitle === "intro" ? "#eeeeee" : "#fff",
                     }}
                   >
                     Introdução
@@ -176,7 +176,7 @@ export const SidebarCapitulos = ({
                         collection.data.data.length > 0 && (
                           <div key={collection.id} className="mt-1">
                             <p
-                              className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center ${
+                              className={`list-group-item list-group-item-action d-flex justify-content-between align-items-center button-title-sidebar ${
                                 expandedCollection === collection.id
                                   ? "active-dark"
                                   : ""
@@ -188,7 +188,7 @@ export const SidebarCapitulos = ({
                                 backgroundColor:
                                   expandedCollection === collection.id
                                     ? "#eeeeee"
-                                    : "transparent",
+                                    : "#fff",
                               }}
                             >
                               <span
@@ -220,7 +220,7 @@ export const SidebarCapitulos = ({
                                 {collection.data.data.map((item) => (
                                   <li
                                     key={item.id}
-                                    className={`list-group-item py-2 ${
+                                    className={`list-group-item py-2 button-title-link ${
                                       isChapterActive[item.id]
                                         ? "active-dark"
                                         : ""
@@ -236,7 +236,7 @@ export const SidebarCapitulos = ({
                                       fontSize: "15px",
                                       backgroundColor: isChapterActive[item.id]
                                         ? "#eeeeee"
-                                        : "transparent",
+                                        : "#transparent",
                                     }}
                                   >
                                     <div className="d-flex justify-content-between align-items-center">
@@ -281,12 +281,11 @@ export const SidebarCapitulos = ({
             <div className="logo-container d-flex align-items-center justify-content-between">
               <Link href="/home">
                 <Image
-                  className="img-sidebar-top mx-3"
-                  src={LogoIFEmbrapa}
-                  alt="logo Embrapa com letras em azul com um símbolo verde, sendo que as letras em cima do símbolo são brancas"
-                  width="45%"
-                  height={46}
-                  priority
+                  src={LogoBasf}
+                  width={100}
+                  height={35}
+                  alt="logo Basf"
+                  className="img-sidebar-top mx-4"
                 />
               </Link>
               <button
@@ -309,18 +308,18 @@ export const SidebarCapitulos = ({
             >
               ← Voltar para o Sumário
             </button>
-            <ul className="navbar-nav ms-auto d-flex itens-menu-cap">
-              <li className="nav-item mx-3">
+            <ul className="navbar-nav d-flex itens-menu-cap">
+              <li className="nav-item">
                 <Link
                   className="nav-link back-item-link py-2"
                   href="/edicao-completa"
                   aria-current="page"
                   onClick={() => setIsOffcanvasOpen(false)}
                 >
-                  <span className="link-text">Edição Completa</span>
+                  <span className="link-text">Manual</span>
                 </Link>
               </li>
-              <li className="nav-item mx-3">
+              <li className="nav-item">
                 <Link
                   className="nav-link back-item-link py-2"
                   href="/autores"

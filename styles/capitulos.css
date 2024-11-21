@@ -78,8 +78,15 @@ hr {
 }
 
 .introduction-button-p {
-  margin-top: 5px;
+  margin-top: 2px;
   margin-bottom: -2px;
+}
+
+.introduction-button-p {
+  background-color: rgb(238, 238, 238);
+}
+.button-title-sidebar:hover {
+  background-color: rgb(238, 238, 238) !important;
 }
 
 #main-navbar-options-menu {
@@ -649,7 +656,7 @@ hr {
     font-size: 15px;
     font-weight: 700;
     margin: 0 0 0 0;
-    padding: 0.6rem 1.5rem;
+    padding: 0.6rem 1.1rem;
     position: relative;
     text-align: left;
     top: -0.8rem;
