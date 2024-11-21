@@ -789,9 +789,6 @@ footer .container-footer-cap {
   #search-icon {
     right: 25px;
   }
-  .hero {
-    min-height: calc(100vh - 100px);
-  }
   .breadcrumbs__link {
     font-size: 11px !important;
   }
