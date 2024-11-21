@@ -262,7 +262,7 @@ export const SidebarCapitulos = ({
                                   </li>
                                 ))}
                                 {collection.data.data.length === 0 && (
-                                  <p>Carregando...</p>
+                                  <p style={{display: 'flex', justifyContent: 'center'}}>Carregando...</p>
                                 )}
                               </ul>
                             )}
