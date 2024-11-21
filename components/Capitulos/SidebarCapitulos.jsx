@@ -236,7 +236,7 @@ export const SidebarCapitulos = ({
                                       fontSize: "15px",
                                       backgroundColor: isChapterActive[item.id]
                                         ? "#eeeeee"
-                                        : "#transparent",
+                                        : "transparent",
                                     }}
                                   >
                                     <div className="d-flex justify-content-between align-items-center">
