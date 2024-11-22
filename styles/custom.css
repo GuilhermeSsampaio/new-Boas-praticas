@@ -534,7 +534,7 @@ footer {
   margin-top: auto;
   background: #fff;
   width: 100%;
-  box-shadow: 15px 8px 8px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 8px 8px 8px rgba(0, 0, 0, .2);
 }
 
 footer .container-footer {
