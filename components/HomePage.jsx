@@ -48,7 +48,7 @@ export const HomePage = () => {
         </div>
       </div>
 
-      <div className="apresentacao">
+      <div className="apresentacao shadow-lg">
         <div className="titulo">
           <h2>Realizadores</h2>
           <p className="mb-5">
