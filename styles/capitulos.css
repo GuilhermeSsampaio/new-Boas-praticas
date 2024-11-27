@@ -10,6 +10,8 @@
 html,
 body {
   overflow-x: hidden !important;
+  min-width: 250px;
+  max-width: 100%;
 }
 
 body {
