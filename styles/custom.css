@@ -382,23 +382,22 @@ hr {
   margin-bottom: 0.2rem;
 }
 
+.text-section {
+  flex: 1 1 50% !important;
+  min-width: 300px !important;
+  color: #fff;
+}
+.image-section {
+  flex: 1 1 50% !important;
+  min-width: 300px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
 .custom-card {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-
-.text-section {
-  flex: 1 1 60% !important;
-  min-width: 300px !important;
-  color: #fff;
-}
-
-.image-section {
-  flex: 1 1 40% !important;
-  min-width: 300px !important;
-  display: flex !important;
-  justify-content: center !important;
 }
 
 .responsive-image {
@@ -575,6 +574,20 @@ footer .container-footer-cap {
   .spacing-images-realizadores {
     padding-left: 242px;
     padding-right: 242px;
+  }
+}
+
+@media screen and (min-width: 1330px) {
+  .text-section {
+    flex: 1 1 60% !important;
+    min-width: 300px !important;
+    color: #fff;
+  }
+  .image-section {
+    flex: 1 1 40% !important;
+    min-width: 300px !important;
+    display: flex !important;
+    justify-content: center !important;
   }
 }
 
