@@ -10,6 +10,8 @@
 html,
 body {
   overflow-x: hidden !important;
+  min-width: 250px;
+  max-width: 100%;
 }
 
 body {
@@ -78,8 +80,15 @@ hr {
 }
 
 .introduction-button-p {
-  margin-top: 5px;
+  margin-top: 2px;
   margin-bottom: -2px;
+}
+
+.introduction-button-p {
+  background-color: rgb(238, 238, 238);
+}
+.button-title-sidebar:hover {
+  background-color: rgb(238, 238, 238) !important;
 }
 
 #main-navbar-options-menu {
@@ -211,6 +220,7 @@ hr {
   font-weight: 400;
   text-decoration: none;
   border-radius: 1.5rem;
+  margin-right: 3px;
   padding: calc(0.4rem * 0.8) calc(0.6rem * 0.8);
   text-decoration: none;
   transition-duration: 0ms;
@@ -229,7 +239,6 @@ hr {
   color: inherit;
   font-weight: 700;
   line-height: 1.25;
-  margin-bottom: 1rem;
   color: #1c1e21;
 }
 
@@ -244,7 +253,7 @@ hr {
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  margin: 0 0 70px;
+  margin: 0 0 30px;
   font-weight: 700;
   color: #1c1e21;
 }
@@ -649,7 +658,7 @@ hr {
     font-size: 15px;
     font-weight: 700;
     margin: 0 0 0 0;
-    padding: 0.6rem 1.5rem;
+    padding: 0.6rem 1.1rem;
     position: relative;
     text-align: left;
     top: -0.8rem;
