@@ -3,7 +3,7 @@ import Link from "next/link";
 import InstallButton from "./InstallButton/InstallButton";
 import InstallButtonIos from "./InstallButton/InstallButtonIos";
 import { isDesktop, isAndroid, isIOS } from "react-device-detect";
-
+import Head from "next/head";
 export const HomePage = () => {
   //Importação das Imagens
   var LogoIF = require("../public/ifms-dr-marca-2015.png");
@@ -14,6 +14,10 @@ export const HomePage = () => {
 
   return (
     <>
+      <Head>
+        <meta name="referrer" content="no-referrer" />
+        <title>Boas Práticas</title>
+      </Head>
       {/* Conteúdos da Página Principal */}
       <div className="px-4 py-5 text-center hero content-after-navbar">
         <div className="hero-text">
