@@ -1,14 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect } from "react";
 import Head from "next/head";
 import useFetchAutores from "../../hooks/useFetchAutores";
 
 export const Autores = () => {
   const { data } = useFetchAutores();
-
-  useEffect(() => {
-    document.title = "Embrapa Autores";
-  }, []);
 
   return (
     <>
@@ -32,26 +27,29 @@ export const Autores = () => {
               return (
                 <div key={item.id} className="card">
                   <div className="containerAutor_v1t1">
-                    {/* Imagem dos Autores */}
                     <div className="containerFoto_oz_I">
-                      <img
-                        src={`${descriptionData.blocks[0].data.file.url}`}
-                        alt="Foto dos Autores"
-                        width="100%"
-                      />
+                      {!descriptionData?.blocks?.[0]?.data?.file?.url ? (
+                        <img
+                          src="/no-image.png"
+                          alt="Foto dos Autores"
+                          width="100%"
+                        />
+                      ) : (
+                        <img
+                          src={`${descriptionData.blocks[0].data.file.url}`}
+                          alt="Foto dos Autores"
+                          width="100%"
+                        />
+                      )}
                     </div>
-                    {/* Nome dos Autores */}
                     <p className="bold nome-autor">{item.attributes.name}</p>
-                    {/* Função dos Autores */}
                     <p className="funcao-autor">{item.attributes.funcao}</p>
                   </div>
-                  {/* Descrição dos Autores */}
                   <div className="cardContainer_HEVx">
                     <p className="descricao-autor">
                       {descriptionData.blocks[1].data.text}
                     </p>
                   </div>
-                  {/* Link para o Currículo dos Autores */}
                   <div className="action-card">
                     {/* Extrai a tag <a> da string JSON e renderiza como HTML */}
                     {descriptionData.blocks.map((block) => {
